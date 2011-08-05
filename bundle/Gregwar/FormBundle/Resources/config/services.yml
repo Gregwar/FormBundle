@@ -1,0 +1,8 @@
+
+services:
+    # Hidden entity type
+    hidden_entity.type:
+        class: Gregwar\FormBundle\Type\HiddenEntityType
+        arguments: [@doctrine]
+        tags:
+            - { name: form.type, alias: hidden_entity }
