@@ -25,10 +25,11 @@ class EntityToIdTransformer implements DataTransformerInterface
     {
         if (!(null === $queryBuilder || $queryBuilder instanceof QueryBuilder || $queryBuilder instanceof \Closure)) {
             throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder or \Closure');
-        }   
+        }
 
-        if (null == $class)
+        if (null == $class) {
             throw new UnexpectedTypeException($class, 'string');
+        }
 
         $this->em = $em;
         $this->class = $class;
@@ -37,8 +38,9 @@ class EntityToIdTransformer implements DataTransformerInterface
 
     public function transform($data)
     {
-        if (null === $data)
+        if (null === $data) {
             return null;
+        }
 
         $meta = $this->em->getClassMetadata($this->class);
 
@@ -77,8 +79,9 @@ class EntityToIdTransformer implements DataTransformerInterface
             $result = $repository->find($data);
         }
 
-        if (!$result)
+        if (!$result) {
             throw new TransformationFailedException('Entity does not exists');
+        }
 
         return $result;
     }
