@@ -24,12 +24,6 @@ class HiddenEntityType extends AbstractType
 
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->
-            add('id', 'hidden', array(
-                'required' => $options['required']
-            ))
-            ;
-
         $builder->prependClientTransformer(new EntityToIdTransformer($this->em, $options['class'], $options['query_builder']));
     }
 
@@ -40,16 +34,23 @@ class HiddenEntityType extends AbstractType
             'class'             => null,
             'property'          => null,
             'query_builder'     => null,
+            'type'              => 'hidden',
+            'hidden'            => true,
         );
-
         $options = array_replace($defaultOptions, $options);
 
         $this->em = $options['em'] ?: $this->doctrine->getEntityManager();
 
-        if (null === $options['class'])
+        if (null === $options['class']) {
             throw new \RunTimeException('You must provide a class option for the hidden entity field');
+        }
 
         return $options;
+    }
+
+    public function getParent(array $options)
+    {
+        return $options['hidden'] ? 'hidden' : 'text';
     }
 
     public function getName()
