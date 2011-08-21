@@ -10,19 +10,23 @@ To install `GregwarFormBundle`, first adds it to your deps and clone it in your
 vendor directory, then add the namespace to your `app/autoload.php` file (the 
 following assumes that your set target=bundles/Gregwar) :
 
-      'Gregwar' => __DIR__.'/../vendor/bundles',
+```js
+'Gregwar' => __DIR__.'/../vendor/bundles',
+```
 
 And registers the bundle in your `app/AppKernel.php`:
 
-    ...
-    public function registerBundles()
-    {
-        $bundles = array(
-            ...
-            new Gregwar\FormBundle\GregwarFormBundle(),
-            ...
-        );
-    ...
+```js
+...
+public function registerBundles()
+{
+    $bundles = array(
+        ...
+        new Gregwar\FormBundle\GregwarFormBundle(),
+        ...
+    );
+...
+```
 
 Adds the following configuration to your `app/config/config.yml`:
 
@@ -37,7 +41,7 @@ javascripts or any UI logics to fill it programmatically.
 The usage look like the entity field type one, except that the query builder have
 to returns one unique result. One full example :
 
-```javascript
+```js
 $builder
     ->add('city', 'entity_id', array(
         'class' => 'Project\Entity\City',
@@ -54,7 +58,7 @@ Note that if you don't provide any query builder, `->find($id)` will be used.
 
 You can also chose to show the field, by passing the `hidden` option to `false`:
 
-```javascript
+```js
 $builder
     ->add('city', 'entity_id', array(
         'class' => 'Project\Entity\City',
@@ -67,7 +71,7 @@ $builder
 Using the `property` option, you can also use another identifier than the primary
 key:
 
-```javascript
+```js
 $builder
     ->add('recipient', 'entity_id', array(
         'class' => 'Project\Entity\User',
