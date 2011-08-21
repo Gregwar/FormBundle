@@ -5,6 +5,7 @@ namespace Gregwar\FormBundle\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Form\Exception\FormException;
 
 use Gregwar\FormBundle\DataTransformer\OneEntityToIdTransformer;
 
@@ -46,7 +47,7 @@ class EntityIdType extends AbstractType
         $options = array_replace($defaultOptions, $options);
 
         if (null === $options['class']) {
-            throw new \RunTimeException('You must provide a class option for the entity identifier field');
+            throw new FormException('You must provide a class option for the entity identifier field');
         }
 
         return $options;
