@@ -1,15 +1,16 @@
 Gregwar's FormBundle
 =====================
 
-`GregwarFormBundle` provides the form type "hidden_entity"
+`GregwarFormBundle` provides the form type "entity_id"
 
 Installation
 ============
 
 To install `GregwarFormBundle`, first adds it to your deps and clone it in your
-vendor directory, then add the namespace to your `app/autoload.php` file:
+vendor directory, then add the namespace to your `app/autoload.php` file (the 
+following assumes that your set target=bundles/Gregwar) :
 
-      'Gregwar' => __DIR__.'/../vendor/gregwar-form/bundle/',
+      'Gregwar' => __DIR__.'/../vendor/bundles',
 
 And registers the bundle in your `app/AppKernel.php`:
 
@@ -30,14 +31,14 @@ Adds the following configuration to your `app/config/config.yml`:
 Usage
 =====
 
-The hidden_entity is a field that contains an entity id, this assumes you set up
+The entity_id is a field that contains an entity id, this assumes you set up
 javascripts or any UI logics to fill it programmatically.
 
 The usage look like the entity field type one, except that the query builder have
 to returns one unique result. One full example :
 
     $builder
-        ->add('city', 'hidden_entity', array(
+        ->add('city', 'entity_id', array(
             'required' => false,
             'class' => 'Project\Entity\City',
             'query_builder' => function(EntityRepository $repo, $id) {

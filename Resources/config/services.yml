@@ -1,8 +1,8 @@
 
 services:
-    # Hidden entity type
-    hidden_entity.type:
-        class: Gregwar\FormBundle\Type\HiddenEntityType
+    # entity_id type
+    entity_id.type:
+        class: Gregwar\FormBundle\Type\EntityIdType
         arguments: [@doctrine]
         tags:
-            - { name: form.type, alias: hidden_entity }
+            - { name: form.type, alias: entity_id }
