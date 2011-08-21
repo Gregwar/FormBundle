@@ -9,6 +9,7 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\Util\PropertyPath;
 
 use Doctrine\ORM\NoResultException;
 
@@ -21,13 +22,14 @@ class OneEntityToIdTransformer implements DataTransformerInterface
 {
     private $em;
     private $class;
+    private $property;
     private $queryBuilder;
 
     private $unitOfWork;
 
-    public function __construct(EntityManager $em, $class, $queryBuilder)
+    public function __construct(EntityManager $em, $class, $property, $queryBuilder)
     {
-        if (!(null === $queryBuilder || $queryBuilder instanceof QueryBuilder || $queryBuilder instanceof \Closure)) {
+        if (null !== $queryBuilder && ! $queryBuilder instanceof \Closure) {
             throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder or \Closure');
         }
 
@@ -39,6 +41,10 @@ class OneEntityToIdTransformer implements DataTransformerInterface
         $this->unitOfWork = $this->em->getUnitOfWork();
         $this->class = $class;
         $this->queryBuilder = $queryBuilder;
+
+        if ($property) {
+            $this->property = $property;
+        }
     }
 
     public function transform($data)
@@ -49,6 +55,11 @@ class OneEntityToIdTransformer implements DataTransformerInterface
 
         if (!$this->unitOfWork->isInIdentityMap($data)) {
             throw new FormException('Entities passed to the choice field must be managed');
+        }
+
+        if ($this->property) {
+            $propertyPath = new PropertyPath($this->property);
+            return $propertyPath->getValue($data);
         }
 
         return current($this->unitOfWork->getEntityIdentifier($data));
@@ -72,14 +83,18 @@ class OneEntityToIdTransformer implements DataTransformerInterface
             try {
                 $result = $qb->getQuery()->getSingleResult();
             } catch (NoResultException $e) {
-                throw new TransformationFailedException('No entities found');
+                $result = null;
             }
         } else {
-            $result = $repository->find($data);
+            if ($this->property) {
+                $result = $repository->findOneBy(array($this->property => $data));
+            } else {
+                $result = $repository->find($data);
+            }
         }
 
         if (!$result) {
-            throw new TransformationFailedException('Entity does not exists');
+            throw new TransformationFailedException('Can not find entity');
         }
 
         return $result;

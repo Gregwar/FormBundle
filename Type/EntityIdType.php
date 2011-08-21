@@ -27,6 +27,7 @@ class EntityIdType extends AbstractType
         $builder->prependClientTransformer(new OneEntityToIdTransformer(
             $this->registry->getEntityManager($options['em']),
             $options['class'], 
+            $options['property'],
             $options['query_builder']
         ));
     }
