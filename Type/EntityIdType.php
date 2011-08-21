@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-use Gregwar\FormBundle\DataTransformer\EntityToIdTransformer;
+use Gregwar\FormBundle\DataTransformer\OneEntityToIdTransformer;
 
 /**
  * Entity identitifer
@@ -24,7 +24,7 @@ class EntityIdType extends AbstractType
 
     public function buildForm(FormBuilder $builder, array $options)
     {
-        $builder->prependClientTransformer(new EntityToIdTransformer(
+        $builder->prependClientTransformer(new OneEntityToIdTransformer(
             $this->registry->getEntityManager($options['em']),
             $options['class'], 
             $options['query_builder']

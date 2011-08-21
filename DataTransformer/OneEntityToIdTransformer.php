@@ -8,6 +8,7 @@ use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Doctrine\ORM\EntityManager;
 
 use Doctrine\ORM\NoResultException;
 
@@ -16,7 +17,7 @@ use Doctrine\ORM\NoResultException;
  *
  * @author Gregwar <g.passault@gmail.com>
  */
-class EntityToIdTransformer implements DataTransformerInterface
+class OneEntityToIdTransformer implements DataTransformerInterface
 {
     private $em;
     private $class;
@@ -24,7 +25,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 
     private $unitOfWork;
 
-    public function __construct($em, $class, $queryBuilder)
+    public function __construct(EntityManager $em, $class, $queryBuilder)
     {
         if (!(null === $queryBuilder || $queryBuilder instanceof QueryBuilder || $queryBuilder instanceof \Closure)) {
             throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder or \Closure');
