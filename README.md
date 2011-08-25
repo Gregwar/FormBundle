@@ -10,7 +10,7 @@ To install `GregwarFormBundle`, first adds it to your `deps`:
 
     [GregwarFormBundle]
         git=git://github.com/Gregwar/FormBundle.git
-        target=/bundles/Gregwar/GregwarFormBundle
+        target=/bundles/Gregwar/FormBundle
 
 And run `php bin/vendors install`. Then add the namespace to your `app/autoload.php` 
 file:
