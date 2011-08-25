@@ -6,18 +6,27 @@ Gregwar's FormBundle
 Installation
 ============
 
-To install `GregwarFormBundle`, first adds it to your deps and clone it in your
-vendor directory, then add the namespace to your `app/autoload.php` file (the 
-following assumes that your set target=bundles/Gregwar) :
+To install `GregwarFormBundle`, first adds it to your `deps`:
 
-```js
+    [GregwarFormBundle]
+        git=git://github.com/Gregwar/FormBundle.git
+        target=/bundles/Gregwar/GregwarFormBundle
+
+And run `php bin/vendors install`. Then add the namespace to your `app/autoload.php` 
+file:
+
+```php
+<?php
+...
 'Gregwar' => __DIR__.'/../vendor/bundles',
+...
 ```
 
 And registers the bundle in your `app/AppKernel.php`:
 
-```js
-...
+```php
+<?php
+//...
 public function registerBundles()
 {
     $bundles = array(
@@ -41,7 +50,9 @@ javascripts or any UI logics to fill it programmatically.
 The usage look like the entity field type one, except that the query builder have
 to returns one unique result. One full example :
 
-```js
+```php
+<?php
+//...
 $builder
     ->add('city', 'entity_id', array(
         'class' => 'Project\Entity\City',
@@ -58,7 +69,9 @@ Note that if you don't provide any query builder, `->find($id)` will be used.
 
 You can also chose to show the field, by passing the `hidden` option to `false`:
 
-```js
+```php
+<?php
+//...
 $builder
     ->add('city', 'entity_id', array(
         'class' => 'Project\Entity\City',
@@ -71,7 +84,9 @@ $builder
 Using the `property` option, you can also use another identifier than the primary
 key:
 
-```js
+```php
+<?php
+//...
 $builder
     ->add('recipient', 'entity_id', array(
         'class' => 'Project\Entity\User',
