@@ -2,6 +2,11 @@ framework:
     secret: test
     test: ~
     form: true
+    templating:
+        engines: ['twig']
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: %kernel.debug%
 
 doctrine:
     dbal:

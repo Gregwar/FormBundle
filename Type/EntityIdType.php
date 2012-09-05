@@ -5,7 +5,11 @@ namespace Gregwar\FormBundle\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Symfony\Component\Form\Exception\FormException;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\Form\FormView;
+use Symfony\Component\Form\FormInterface;
 
 use Gregwar\FormBundle\DataTransformer\OneEntityToIdTransformer;
 
@@ -23,39 +27,40 @@ class EntityIdType extends AbstractType
         $this->registry = $registry;
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->prependClientTransformer(new OneEntityToIdTransformer(
+        $builder->addModelTransformer(new OneEntityToIdTransformer(
             $this->registry->getEntityManager($options['em']),
-            $options['class'], 
+            $options['class'],
             $options['property'],
             $options['query_builder']
         ));
     }
 
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $defaultOptions = array(
-            'em'                => null,
-            'class'             => null,
-            'property'          => null,
-            'query_builder'     => null,
-            'type'              => 'hidden',
-            'hidden'            => true,
-        );
+        $resolver->setRequired(array(
+            'class',
+        ));
 
-        $options = array_replace($defaultOptions, $options);
-
-        if (null === $options['class']) {
-            throw new FormException('You must provide a class option for the entity identifier field');
-        }
-
-        return $options;
+        $resolver->setDefaults(array(
+            'em'            => null,
+            'property'      => null,
+            'query_builder' => null,
+            'hidden'        => true,
+        ));
     }
 
-    public function getParent(array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        return $options['hidden'] ? 'hidden' : 'text';
+        if (true === $options['hidden']) {
+            $view->vars['type'] = 'hidden';
+        }
+    }
+
+    public function getParent()
+    {
+        return 'text';
     }
 
     public function getName()
