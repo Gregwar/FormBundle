@@ -1,0 +1,14 @@
+framework:
+    secret: test
+    test: ~
+    form: true
+
+doctrine:
+    dbal:
+        driver: pdo_sqlite
+        path: %kernel.cache_dir%/data.sqlite
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        entity_managers:
+            default:
+                auto_mapping: true
