@@ -1,0 +1,15 @@
+{
+    "name": "gregwar/form-bundle",
+    "description": "Provides the \"entity_id\" type (read \"entity identifier\")",
+    "require": {
+        "symfony/symfony": "2.1.*",
+        "symfony/framework-bundle": "2.1.*",
+        "doctrine/doctrine-bundle": "*",
+        "doctrine/orm": "*"
+    },
+    "autoload": {
+        "psr-0": { "Gregwar\\FormBundle": "" }
+    },
+    "target-dir": "Gregwar/FormBundle",
+    "minimum-stability": "dev"
+}
