@@ -60,7 +60,7 @@ $builder
         'query_builder' => function(EntityRepository $repo, $id) {
             return $repo->createQueryBuilder('c')
                 ->where('c.id = :id AND c.available = 1')
-                ->setParameter('id', $id)
+                ->setParameter('id', $id);
         }
     ))
     ;
