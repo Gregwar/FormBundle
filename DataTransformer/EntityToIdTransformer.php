@@ -19,16 +19,17 @@ use Doctrine\ORM\NoResultException;
  *
  * @author Gregwar <g.passault@gmail.com>
  */
-class OneEntityToIdTransformer implements DataTransformerInterface
+class EntityToIdTransformer implements DataTransformerInterface
 {
     private $em;
     private $class;
     private $property;
     private $queryBuilder;
+    private $multiple;
 
     private $unitOfWork;
 
-    public function __construct(EntityManager $em, $class, $property, $queryBuilder)
+    public function __construct(EntityManager $em, $class, $property, $queryBuilder, $multiple)
     {
         if (!(null === $queryBuilder || $queryBuilder instanceof QueryBuilder || $queryBuilder instanceof \Closure)) {
             throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder or \Closure');
@@ -42,6 +43,7 @@ class OneEntityToIdTransformer implements DataTransformerInterface
         $this->unitOfWork = $this->em->getUnitOfWork();
         $this->class = $class;
         $this->queryBuilder = $queryBuilder;
+        $this->multiple = $multiple;
 
         if ($property) {
             $this->property = $property;
@@ -54,6 +56,27 @@ class OneEntityToIdTransformer implements DataTransformerInterface
             return null;
         }
 
+        if (!$this->multiple) {
+            return $this->transformSingleEntity($data);
+        }
+
+        $return = array();
+
+        foreach ($data as $element) {
+            $return[] = $this->transformSingleEntity($element);
+        }
+
+        return implode(', ', $return);
+    }
+
+    protected function splitData($data)
+    {
+        return explode(',', $data);
+    }
+
+
+    protected function transformSingleEntity($data)
+    {
         if (!$this->unitOfWork->isInIdentityMap($data)) {
             throw new FormException('Entities passed to the choice field must be managed');
         }
@@ -72,6 +95,21 @@ class OneEntityToIdTransformer implements DataTransformerInterface
             return null;
         }
 
+        if (!$this->multiple) {
+            return $this->reverseTransformSingleEntity($data);
+        }
+
+        $return = array();
+
+        foreach ($this->splitData($data) as $element) {
+            $return[] = $this->reverseTransformSingleEntity($element);
+        }
+
+        return $return;
+    }
+
+    protected function reverseTransformSingleEntity($data)
+    {
         $em = $this->em;
         $class = $this->class;
         $repository = $em->getRepository($class);
@@ -101,4 +139,3 @@ class OneEntityToIdTransformer implements DataTransformerInterface
         return $result;
     }
 }
-

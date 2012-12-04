@@ -11,7 +11,7 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 
-use Gregwar\FormBundle\DataTransformer\OneEntityToIdTransformer;
+use Gregwar\FormBundle\DataTransformer\EntityToIdTransformer;
 
 /**
  * Entity identitifer
@@ -29,11 +29,12 @@ class EntityIdType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addModelTransformer(new OneEntityToIdTransformer(
+        $builder->addModelTransformer(new EntityToIdTransformer(
             $this->registry->getEntityManager($options['em']),
             $options['class'],
             $options['property'],
-            $options['query_builder']
+            $options['query_builder'],
+            $options['multiple']
         ));
     }
 
@@ -48,6 +49,7 @@ class EntityIdType extends AbstractType
             'property'      => null,
             'query_builder' => null,
             'hidden'        => true,
+            'multiple'      => false,
         ));
     }
 
