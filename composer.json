@@ -2,8 +2,8 @@
     "name": "gregwar/form-bundle",
     "description": "Provides the \"entity_id\" type (read \"entity identifier\")",
     "require": {
-        "symfony/symfony": "2.1.*",
-        "symfony/framework-bundle": "2.1.*",
+        "symfony/symfony": ">=2.1,<2.3-dev",
+        "symfony/framework-bundle": ">=2.1,<2.3-dev",
         "doctrine/doctrine-bundle": "*",
         "doctrine/orm": "*"
     },
