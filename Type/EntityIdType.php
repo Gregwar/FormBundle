@@ -30,7 +30,7 @@ class EntityIdType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addModelTransformer(new EntityToIdTransformer(
-            $this->registry->getEntityManager($options['em']),
+            $this->registry->getManager($options['em']),
             $options['class'],
             $options['property'],
             $options['query_builder'],
