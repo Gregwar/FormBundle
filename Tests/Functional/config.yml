@@ -7,6 +7,8 @@ framework:
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: %kernel.debug%
+    session:
+        storage_id: session.storage.mock_file
 
 doctrine:
     dbal:
