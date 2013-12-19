@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\Form\Util\PropertyPath;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 use Doctrine\ORM\NoResultException;
 
@@ -82,8 +82,8 @@ class EntityToIdTransformer implements DataTransformerInterface
         }
 
         if ($this->property) {
-            $propertyPath = new PropertyPath($this->property);
-            return $propertyPath->getValue($data);
+            $propertyAccessor = new PropertyAccessor();
+            return $propertyAccessor->getValue($data, $this->property);
         }
 
         return current($this->unitOfWork->getEntityIdentifier($data));
