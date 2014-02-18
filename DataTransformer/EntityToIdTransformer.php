@@ -21,7 +21,7 @@ use Doctrine\ORM\NoResultException;
  */
 class EntityToIdTransformer implements DataTransformerInterface
 {
-    private $em;
+    protected $em;
     private $class;
     private $property;
     private $queryBuilder;
