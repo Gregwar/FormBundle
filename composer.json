@@ -3,8 +3,8 @@
     "description": "Provides the \"entity_id\" type (read \"entity identifier\")",
     "license": "MIT",
     "require": {
-        "symfony/symfony": ">=2.1,<2.5-dev",
-        "symfony/framework-bundle": ">=2.1,<2.5-dev",
+        "symfony/symfony": ">=2.1,<2.6-dev",
+        "symfony/framework-bundle": ">=2.1,<2.6-dev",
         "doctrine/doctrine-bundle": "*",
         "doctrine/orm": "*"
     },
