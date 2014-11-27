@@ -8,16 +8,6 @@ Installation
 
 To install `GregwarFormBundle`, run `composer require gregwar/form-bundle`.
 
-Then add the namespace to your `app/autoload.php` 
-file:
-
-```php
-<?php
-...
-'Gregwar' => __DIR__.'/../vendor/bundles',
-i...
-```
-
 And registers the bundle in your `app/AppKernel.php`:
 
 ```php
