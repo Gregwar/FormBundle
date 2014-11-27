@@ -6,27 +6,13 @@ Gregwar's FormBundle
 Installation
 ============
 
-To install `GregwarFormBundle`, first adds it to your `deps`:
+To install `GregwarFormBundle`, run `composer require gregwar/form-bundle`.
 
-    [GregwarFormBundle]
-        git=git://github.com/Gregwar/FormBundle.git
-        target=/bundles/Gregwar/FormBundle
-        version=2.0 <- for Symfony 2.0
-
-And run `php bin/vendors install`. Then add the namespace to your `app/autoload.php` 
-file:
+Then, register the bundle in the application kernel :
 
 ```php
 <?php
-...
-'Gregwar' => __DIR__.'/../vendor/bundles',
-i...
-```
-
-And registers the bundle in your `app/AppKernel.php`:
-
-```php
-<?php
+// app/AppKernel.php
 //...
 public function registerBundles()
 {
@@ -38,8 +24,9 @@ public function registerBundles()
 ...
 ```
 
-Adds the following configuration to your `app/config/config.yml`:
+Finally, add the following block to the configuration :
 
+    # app/config/config.yml
     gregwar_form: ~
 
 Usage
