@@ -8,7 +8,7 @@ Installation
 
 To install `GregwarFormBundle`, run `composer require gregwar/form-bundle`.
 
-And registers the bundle in your `app/AppKernel.php`:
+Then, register the bundle in your `app/AppKernel.php`:
 
 ```php
 <?php
@@ -23,7 +23,7 @@ public function registerBundles()
 ...
 ```
 
-Adds the following configuration to your `app/config/config.yml`:
+Finally, add the following configuration to your `app/config/config.yml`:
 
     gregwar_form: ~
 
