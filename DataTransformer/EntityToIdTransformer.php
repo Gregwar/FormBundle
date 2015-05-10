@@ -2,6 +2,7 @@
 
 namespace Gregwar\FormBundle\DataTransformer;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\FormException;
 use Symfony\Component\Form\Exception\TransformationFailedException;
@@ -29,7 +30,7 @@ class EntityToIdTransformer implements DataTransformerInterface
 
     private $unitOfWork;
 
-    public function __construct(EntityManager $em, $class, $property, $queryBuilder, $multiple)
+    public function __construct(EntityManagerInterface $em, $class, $property, $queryBuilder, $multiple)
     {
         if (!(null === $queryBuilder || $queryBuilder instanceof QueryBuilder || $queryBuilder instanceof \Closure)) {
             throw new UnexpectedTypeException($queryBuilder, 'Doctrine\ORM\QueryBuilder or \Closure');
