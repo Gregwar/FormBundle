@@ -3,15 +3,15 @@
     "description": "Provides the \"entity_id\" type (read \"entity identifier\")",
     "license": "MIT",
     "require": {
-        "symfony/framework-bundle": "~2.1",
-        "symfony/form": "~2.1",
-        "symfony/validator": "~2.1",
-        "symfony/property-access": "~2.2",
+        "symfony/symfony": "~2.3",
+        "symfony/form": "~2.3",
+        "symfony/validator": "~2.3",
+        "symfony/property-access": "~2.3",
         "doctrine/orm": "~2.2,>=2.2.3"
     },
     "require-dev": {
-        "doctrine/doctrine-bundle": "~1.1",
-        "symfony/twig-bundle": "~2.1"
+        "doctrine/doctrine-bundle": "~1.2",
+        "symfony/twig-bundle": "~2.3"
     },
     "autoload": {
         "psr-0": { "Gregwar\\FormBundle": "" }
