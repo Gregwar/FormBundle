@@ -16,5 +16,10 @@
     "autoload": {
         "psr-0": { "Gregwar\\FormBundle": "" }
     },
-    "target-dir": "Gregwar/FormBundle"
+    "target-dir": "Gregwar/FormBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.6-dev"
+        }
+    }
 }
