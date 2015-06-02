@@ -35,7 +35,7 @@ class FormTest extends WebTestCase
 
     /**
      * @expectedException Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required option "class" is  missing.
+     * @expectedExceptionMessage The required option "class" is missing.
      */
     public function testFormWithNoClass()
     {
