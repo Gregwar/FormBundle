@@ -5,6 +5,7 @@ namespace Gregwar\FormBundle\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
@@ -43,7 +44,13 @@ class EntityIdType extends AbstractType
         ));
     }
 
+    // To be removed in Symfony 3.0
     public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $this->configureOptions($resolver);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired(array(
             'class',
