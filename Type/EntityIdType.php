@@ -44,7 +44,7 @@ class EntityIdType extends AbstractType
         ));
     }
 
-    // To be removed in Symfony 3.0
+    // Todo: remove when Symfony < 2.7 support is dropped
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $this->configureOptions($resolver);
