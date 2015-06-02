@@ -8,7 +8,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\HttpKernel\Kernel;
 
 use Gregwar\FormBundle\DataTransformer\EntityToIdTransformer;
 
@@ -28,14 +27,8 @@ class EntityIdType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        if ('2' == Kernel::MAJOR_VERSION && Kernel::MINOR_VERSION < '1') {
-            $em = $this->registry->getEntityManager($options['em']);
-        } else {
-            $em = $this->registry->getManager($options['em']);
-        }
-
         $builder->addModelTransformer(new EntityToIdTransformer(
-            $em,
+            $this->registry->getManager($options['em']),
             $options['class'],
             $options['property'],
             $options['query_builder'],
