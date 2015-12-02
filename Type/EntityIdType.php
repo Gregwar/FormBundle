@@ -67,11 +67,22 @@ class EntityIdType extends AbstractType
 
     public function getParent()
     {
-        return 'text';
+        // BC for SF < 2.8
+        if (!method_exists('Symfony\Component\Form\AbstractType', 'getBlockPrefix')) {
+            return 'text';
+        }
+
+        return 'Symfony\Component\Form\Extension\Core\Type\TextType';
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'entity_id';
+    }
+
+    // BC for SF < 2.8
+    public function getName()
+    {
+        return $this->getBlockPrefix();
     }
 }
