@@ -3,6 +3,6 @@ services:
     # entity_id type
     entity_id.type:
         class: Gregwar\FormBundle\Type\EntityIdType
-        arguments: [@doctrine]
+        arguments: ["@doctrine"]
         tags:
             - { name: form.type, alias: entity_id }
