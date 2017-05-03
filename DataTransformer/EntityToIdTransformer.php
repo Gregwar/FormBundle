@@ -3,7 +3,6 @@
 namespace Gregwar\FormBundle\DataTransformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\FormException;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\FormError;
@@ -78,7 +77,7 @@ class EntityToIdTransformer implements DataTransformerInterface
     protected function transformSingleEntity($data)
     {
         if (!$this->unitOfWork->isInIdentityMap($data)) {
-            throw new FormException('Entities passed to the choice field must be managed');
+            throw new TransformationFailedException('Entities passed to the choice field must be managed');
         }
 
         if ($this->property) {
