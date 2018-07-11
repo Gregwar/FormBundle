@@ -2,7 +2,9 @@
 
 namespace Gregwar\FormBundle\Tests\Functional;
 
+use Gregwar\FormBundle\Type\EntityIdType;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 class FormTest extends WebTestCase
 {
@@ -19,8 +21,8 @@ class FormTest extends WebTestCase
         $kernel = $this->createKernel();
         $kernel->boot();
 
-        $formBuilder = $kernel->getContainer()->get('form.factory')->createBuilder('form');
-        $formBuilder->add('user', 'entity_id', array(
+        $formBuilder = $kernel->getContainer()->get('form.factory')->createBuilder(FormType::class);
+        $formBuilder->add('user', EntityIdType::class, array(
             'class' => 'Gregwar\FormBundle\Tests\Functional\User',
             'hidden' => $hidden,
         ));
@@ -42,8 +44,8 @@ class FormTest extends WebTestCase
         $kernel = $this->createKernel();
         $kernel->boot();
 
-        $formBuilder = $kernel->getContainer()->get('form.factory')->createBuilder('form');
-        $formBuilder->add('user', 'entity_id');
+        $formBuilder = $kernel->getContainer()->get('form.factory')->createBuilder(FormType::class);
+        $formBuilder->add('user', EntityIdType::class);
         $form = $formBuilder->getForm();
     }
 
