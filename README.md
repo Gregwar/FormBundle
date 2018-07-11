@@ -44,7 +44,7 @@ to returns one unique result. One full example :
 <?php
 //...
 $builder
-    ->add('city', 'entity_id', array(
+    ->add('city', EntityIdType::class, array(
         'class' => 'Project\Entity\City',
         'query_builder' => function(EntityRepository $repo, $id) {
             return $repo->createQueryBuilder('c')
@@ -63,7 +63,7 @@ You can also chose to show the field, by passing the `hidden` option to `false`:
 <?php
 //...
 $builder
-    ->add('city', 'entity_id', array(
+    ->add('city', EntityIdType::class, array(
         'class' => 'Project\Entity\City',
         'hidden' => false,
         'label' => 'Enter the City id'
@@ -78,7 +78,7 @@ key:
 <?php
 //...
 $builder
-    ->add('recipient', 'entity_id', array(
+    ->add('recipient', EntityIdType::class, array(
         'class' => 'Project\Entity\User',
         'hidden' => false,
         'property' => 'login',
